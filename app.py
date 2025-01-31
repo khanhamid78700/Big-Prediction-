@@ -1,13 +1,15 @@
 from flask import Flask, request, jsonify, render_template
 import numpy as np
-import tensorflow as tf
-import joblib
+import tensorflow as tf #type: ignore
+from tensorflow.keras import Sequential # type: ignore
+import joblib # type: ignore
+import requests # type: ignore
 import os
-import requests
 app = Flask(__name__)
 
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
-
+# Example: Create and save a dummy model
+model = Sequential()
+model.save("bdg_prediction_model.h5")
 # Load the trained model and scaler
 model = tf.keras.models.load_model("bdg_prediction_model.h5")
 scaler = joblib.load("scaler.pkl")
@@ -48,4 +50,5 @@ def predict():
     return jsonify({"predicted_next_number": predicted_number})
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000, debug=False)
+    port = int(os.environ.get('PORT', 5000))  # Get the PORT from Render
+    app.run(host='0.0.0.0', port=port)
