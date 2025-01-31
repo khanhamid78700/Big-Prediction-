@@ -49,7 +49,6 @@ termcolor==2.5.0
 threadpoolctl==3.5.0
 trio==0.28.0
 trio-websocket==0.11.1
-typing_extensions==4.12.2
 tzdata==2025.1
 urllib3==2.3.0
 websocket-client==1.8.0
