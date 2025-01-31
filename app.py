@@ -2,8 +2,11 @@ from flask import Flask, request, jsonify, render_template
 import numpy as np
 import tensorflow as tf
 import joblib
+import os
 import requests
 app = Flask(__name__)
+
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
 # Load the trained model and scaler
 model = tf.keras.models.load_model("bdg_prediction_model.h5")
