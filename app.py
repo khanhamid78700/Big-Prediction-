@@ -5,14 +5,20 @@ from tensorflow.keras import Sequential # type: ignore
 import joblib # type: ignore
 import requests # type: ignore
 import os
+from sklearn.preprocessing import MinMaxScaler
+
+scaler = MinMaxScaler()
+joblib.dump(scaler, "scaler.pkl")
+
 app = Flask(__name__)
 
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 # Example: Create and save a dummy model
 model = Sequential()
-model.save("bdg_prediction_model.h5")
 # Load the trained model and scaler
-model = tf.keras.models.load_model("bdg_prediction_model.h5")
-scaler = joblib.load("scaler.pkl")
+model = tf.keras.models.load_model("bdg_prediction_model_fixed.h5")
+model.save("bdg_prediction_model_fixed.h5")
+#scaler = joblib.load("scaler.pkl")
 
 # Function to fetch real-time data from BDG Client API
 def fetch_real_time_data():
@@ -51,4 +57,4 @@ def predict():
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))  # Get the PORT from Render
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port, debug=True)
