@@ -12,6 +12,7 @@ Flask==3.1.0
 flatbuffers==25.1.24
 google-pasta==0.2.0
 grpcio==1.70.0
+gunicorn
 h11==0.14.0
 h5py==3.12.1
 idna==3.10
