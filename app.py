@@ -6,7 +6,7 @@ import os
 import requests
 app = Flask(__name__)
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 
 # Load the trained model and scaler
 model = tf.keras.models.load_model("bdg_prediction_model.h5")
